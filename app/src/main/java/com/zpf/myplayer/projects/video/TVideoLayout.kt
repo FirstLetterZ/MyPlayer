@@ -35,7 +35,8 @@ class TVideoLayout : BaseViewProcessor<Any>() {
         IjkMediaPlayer.native_profileBegin("libijksdl.so")
         val videoInfo = params.getParcelable<VideoBaseInfo>(AppConst.INTENT_KEY)
         ijkPlayer.setController(videoController)
-        ijkPlayer.setVideoPath("http://192.168.1.108:8080/live/livestream.m3u8")
+//        ijkPlayer.setVideoPath("http://192.168.1.108:8080/live/livestream.m3u8")
+        ijkPlayer.setVideoPath(videoInfo?.path)
         ijkPlayer.start()
         videoController.realClickListener = safeClickListener
     }
