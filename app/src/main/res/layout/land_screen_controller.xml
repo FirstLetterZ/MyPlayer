@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/rl">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/mask_bottom" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/mask_top" />
+
+    <com.zpf.views.StatusBar
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.zpf.tool.expand.view.IconTextView
+        android:id="@+id/icon_back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_below="@+id/status_bar"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/iconfont"
+        android:gravity="center"
+        android:text="@string/icon_back"
+        android:textColor="@color/color_white"
+        android:textSize="20dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/status_bar"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="80dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_white"
+        tools:text="sdgfgjhg" />
+
+    <com.zpf.tool.expand.view.IconTextView
+        android:id="@+id/icon_more"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_below="@+id/status_bar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/iconfont"
+        android:gravity="center"
+        android:text="@string/icon_more"
+        android:textColor="@color/color_white"
+        android:textSize="20dp" />
+
+    <com.zpf.tool.expand.view.IconTextView
+        android:id="@+id/icon_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/iconfont"
+        android:text="@string/icon_play_fill"
+        android:textColor="@color/color_white"
+        android:textSize="50dp"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_current"
+        android:layout_width="60dp"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="44dp"
+        android:gravity="center"
+        android:text="00:00"
+        android:textColor="@color/color_white"
+        android:textSize="14dp" />
+
+    <com.zpf.myplayer.projects.video.VideoSeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="76dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="44dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_duration"
+        android:layout_width="60dp"
+        android:layout_height="44dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="44dp"
+        android:gravity="center"
+        android:text="56:00"
+        android:textColor="@color/color_white"
+        android:textSize="14dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_definition"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/border_white_r4"
+        android:gravity="center"
+        android:text="720P"
+        android:textColor="@color/color_white"
+        android:textSize="14dp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="16dp">
+
+        <com.zpf.tool.expand.view.IconTextView
+            android:id="@+id/icon_pause"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:fontFamily="@font/iconfont"
+            android:gravity="center"
+            android:text="@string/icon_stop"
+            android:textColor="@color/color_white"
+            android:textSize="20dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_barrage"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="弹"
+            android:textColor="@color/color_white"
+            android:textSize="16dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.zpf.tool.expand.view.IconTextView
+        android:id="@+id/icon_lock"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:fontFamily="@font/iconfont"
+        android:gravity="center"
+        android:text="@string/icon_lock"
+        android:textColor="@color/color_white"
+        android:textSize="20dp" />
+</merge>

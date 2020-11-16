@@ -1,0 +1,35 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+    }
+}
+
+dependencies {
+    api fileTree(dir: "libs", include: ["*.jar"])
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'androidx.constraintlayout:constraintlayout:2.0.4'
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    api 'com.google.code.gson:gson:2.8.6'
+    api 'com.zpf.android:bridgeWebview:2.0.0'
+    api 'com.zpf.android:util-gson:1.1.0'
+    api 'com.zpf.android:tool-support:1.1.1'
+    api 'com.zpf.android:tool-views:0.3.8'
+    api 'com.zpf.android:util-retrofit:2.2.1'
+    api 'com.zpf.android:tool-compat-fragment-manager:2.0.0'
+    api 'com.zpf.android:rvexpand:1.0.5'
+    api 'com.squareup.okhttp3:okhttp:4.8.1'
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    api 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //ijk视频播放
+    api 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    api 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+}

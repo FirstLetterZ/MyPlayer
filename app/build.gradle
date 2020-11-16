@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        def date = new Date()
+        def dY = date.getYear() - 120
+        def formattedDate = date.format('MMddHHmm')
+        def code = dY * 100000000 + formattedDate.toInteger()
+        versionCode code//2041年越界
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    signingConfigs {
+        debug {
+            keyAlias 'myplayer'
+            keyPassword 'zpf717525'
+            storeFile file('../MyPlayer.jks')
+            storePassword 'zpf717525'
+        }
+        release {
+            keyAlias 'myplayer'
+            keyPassword 'zpf717525'
+            storeFile file('../MyPlayer.jks')
+            storePassword 'zpf717525'
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(path: ':common')
+    api 'com.airbnb.android:lottie:3.5.0'
+}

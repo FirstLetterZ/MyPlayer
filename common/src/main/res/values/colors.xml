@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_main_bg">#EFEFEF</color>
+    <color name="color_divider">#E6E6E6</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_black">#000000</color>
+    <color name="color_111111">#111111</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_304FFE">#304FFE</color>
+    <color name="color_DD2C00">#DD2C00</color>
+    <color name="color_FFD600">#FFD600</color>
+    <color name="color_00C853">#00C853</color>
+    <color name="color_80E51C23">#80E51C23</color>
+</resources>

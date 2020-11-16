@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zpf.common">
+
+    <application>
+        <activity
+            android:name=".app.TranslucentActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/CompatTransparent"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+    </application>
+</manifest>
