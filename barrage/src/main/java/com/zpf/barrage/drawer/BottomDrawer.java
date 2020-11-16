@@ -1,24 +1,29 @@
-package com.zpf.myplayer.view.drawer;
+package com.zpf.barrage.drawer;
 
+import android.graphics.Canvas;
 import android.graphics.RectF;
 
-import com.zpf.myplayer.view.bean.DrawInfo;
+import com.zpf.barrage.model.DrawInfo;
+import com.zpf.barrage.model.DrawerType;
 
-
-public class TopDrawer extends BaseDrawer {
+public class BottomDrawer extends BaseDrawer {
 
     private long duration = 3000;
     private float animTime = 500;
-    public float lineSpace = 1f;
 
-    public TopDrawer(RectF rectf, float lineHeight, float textSize) {
+    public BottomDrawer(RectF rectf, float lineHeight, float textSize) {
         super(rectf, lineHeight, textSize);
-        drawerType = DrawerType.DRAW_TOP;
+        drawerType = DrawerType.DRAW_BOTTOM;
     }
 
     @Override
     protected boolean shouldAddItem(RectF lastDrawRectF) {
-        return lastDrawRectF.height() == 0 || lastDrawRectF.width() == 0 || lastDrawRectF.bottom + lineHeight <= totalRectF.bottom;
+        return lastDrawRectF.height() == 0 || lastDrawRectF.width() == 0 || lastDrawRectF.top - lineHeight >= totalRectF.top;
+    }
+
+    @Override
+    protected void doDraw(Canvas canvas, DrawInfo item) {
+        super.doDraw(canvas, item);
     }
 
     @Override
@@ -60,9 +65,9 @@ public class TopDrawer extends BaseDrawer {
 
         float dY;
         if (lastDrawRectF.isEmpty()) {
-            dY = totalRectF.top - item.rectF.top;
+            dY = totalRectF.bottom - item.rectF.bottom;
         } else {
-            dY = lastDrawRectF.bottom + Math.max(0, lineSpace) - item.rectF.top;
+            dY = lastDrawRectF.top - Math.max(0, lineSpace) - item.rectF.bottom;
         }
         item.rectF.top = item.rectF.top + dY;
         item.rectF.bottom = item.rectF.bottom + dY;

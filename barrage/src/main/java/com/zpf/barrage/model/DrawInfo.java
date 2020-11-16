@@ -1,4 +1,4 @@
-package com.zpf.myplayer.view.bean;
+package com.zpf.barrage.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -6,9 +6,6 @@ import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
-
-import com.zpf.myplayer.view.drawer.DrawerSetting;
-
 
 public class DrawInfo implements Cloneable {
     public float textWidth;
@@ -25,7 +22,7 @@ public class DrawInfo implements Cloneable {
 
     public int bgColor;
     public float bgRadius;
-    public int alpha = 255;
+    public int alpha = 0;
 
     public RectF startIconRect = new RectF();
     public Bitmap startBitmap;

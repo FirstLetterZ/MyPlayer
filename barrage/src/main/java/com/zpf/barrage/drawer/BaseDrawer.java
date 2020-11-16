@@ -1,4 +1,4 @@
-package com.zpf.myplayer.view.drawer;
+package com.zpf.barrage.drawer;
 
 import android.graphics.Canvas;
 import android.graphics.LinearGradient;
@@ -7,16 +7,20 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 
-import androidx.annotation.Nullable;
+import com.zpf.barrage.model.DrawInfo;
+import com.zpf.barrage.interfaces.IDataLoader;
+import com.zpf.barrage.model.DrawerSetting;
+import com.zpf.barrage.model.DrawerType;
 
-import com.zpf.myplayer.view.bean.DrawInfo;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
 
-public abstract class BaseDrawer {
+public abstract class BaseDrawer implements IDanmakuDrawer{
 
     protected float lineHeight;
-    protected DrawInfoDataLoader dataLoader;
+    protected float lineSpace = 1f;
+    protected IDataLoader dataLoader;
     protected boolean lackData = true;
     protected RectF totalRectF;
     protected RectF drawRectF = new RectF();
@@ -39,7 +43,8 @@ public abstract class BaseDrawer {
 
     protected abstract void initLocation(RectF lastDrawRectF, DrawInfo item);
 
-    public void draw(Canvas canvas) {
+    @Override
+    public void prepare() {
         int s = elementList.size();
         drawRectF.setEmpty();
         if (s > 0) {
@@ -50,7 +55,6 @@ public abstract class BaseDrawer {
                 }
                 checkMeasure(drawRectF, item);
                 if (checkDraw(item)) {
-                    doDraw(canvas, item);
                     elementList.add(item);
                     drawRectF.set(item.rectF);
                 }
@@ -68,6 +72,15 @@ public abstract class BaseDrawer {
             checkMeasure(drawRectF, addItem);
             elementList.add(addItem);
             drawRectF.set(addItem.rectF);
+        }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        if(!lackData){
+            for (DrawInfo item :elementList) {
+                doDraw(canvas, item);
+            }
         }
     }
 
@@ -193,7 +206,7 @@ public abstract class BaseDrawer {
         this.lineHeight = lineHeight;
     }
 
-    public void setDataLoader(DrawInfoDataLoader dataLoader) {
+    public void setDataLoader(IDataLoader dataLoader) {
         this.dataLoader = dataLoader;
     }
 }

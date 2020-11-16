@@ -1,8 +1,8 @@
-package com.zpf.myplayer.view.drawer;
+package com.zpf.barrage.drawer;
 
 import android.graphics.RectF;
 
-import com.zpf.myplayer.view.bean.DrawInfo;
+import com.zpf.barrage.model.DrawInfo;
 
 import java.util.Random;
 
@@ -66,5 +66,6 @@ public class RollDrawer extends BaseDrawer {
             item.endIconRect.top = item.endIconRect.top + dY;
             item.endIconRect.bottom = item.endIconRect.bottom + dY;
         }
+        item.alpha = 255;
     }
 }

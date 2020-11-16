@@ -1,2 +1,3 @@
+include ':barrage'
 include ':app', ':common'
 rootProject.name = "MyPlayer"

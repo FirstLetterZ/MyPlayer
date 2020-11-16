@@ -4,23 +4,24 @@ import android.animation.Animator
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
+import com.zpf.barrage.bean.DanmakuNetBean
+import com.zpf.barrage.bean.DanmakuNetBeanParser
+import com.zpf.barrage.util.DataSourceParserUtil
+import com.zpf.barrage.view.DanmakuView
 import com.zpf.common.base.BaseViewProcessor
 import com.zpf.frame.ITitleBar
 import com.zpf.myplayer.R
-import com.zpf.myplayer.view.DanmakuView
-import com.zpf.myplayer.view.bean.DanmakuNetBean
 import com.zpf.support.util.LogUtil
 import com.zpf.tool.config.MainHandler
+import java.util.*
 
 class TestLandLayout : BaseViewProcessor<Any>() {
     private val tvDanmaku: DanmakuView = `$`(R.id.tv_danmaku)
     private val viewAnim: LottieAnimationView = `$`(R.id.anim_view)
     private val files = context.assets.list("Tests")
     private var index = 0
+    private val parser = DanmakuNetBeanParser(mContainer.context)
     override fun getLayoutId(): Int {
         return R.layout.layout_test
     }
@@ -53,7 +54,9 @@ class TestLandLayout : BaseViewProcessor<Any>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DataSourceParserUtil.addParser(parser)
         val sa = context.resources.getStringArray(R.array.danmu)
+        val dataList = LinkedList<DanmakuNetBean>()
         for (i in 0 until 999) {
             val info = DanmakuNetBean()
             val ys = i % 3
@@ -68,15 +71,15 @@ class TestLandLayout : BaseViewProcessor<Any>() {
                 icon.bgRadius = 24f
                 icon.fontColors = arrayListOf("#DD2C00")
                 icon.content = sa[i % sa.size]
-                tvDanmaku.addData(icon, true)
+                dataList.add(icon)
             } else {
                 info.fontColors = arrayListOf("#00C853")
             }
             info.startIconPath = "assets://male_adult_avatar.png"
-            info.endIconPath = "resource://like_blue"
+            info.endIconPath = "resource://icon_like_blue"
             info.type = ys + 1
             info.content = "i=$i"
-            tvDanmaku.addData(info, true)
+            dataList.add(info)
         }
 
         viewAnim.addAnimatorListener(object : Animator.AnimatorListener {
@@ -95,19 +98,25 @@ class TestLandLayout : BaseViewProcessor<Any>() {
             }
 
         })
+        tvDanmaku.addDataList(dataList)
     }
 
     override fun onResume() {
         tvDanmaku.start()
-        if (index >= 0) {
-            MainHandler.get().postDelayed(animRunnable, 1000)
-        }
+//        if (index >= 0) {
+//            MainHandler.get().postDelayed(animRunnable, 1000)
+//        }
     }
 
     override fun onStop() {
         tvDanmaku.pause()
         viewAnim.clearAnimation()
         MainHandler.get().removeCallbacks(animRunnable)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        DataSourceParserUtil.removeParser(parser)
     }
 
     override fun onClick(view: View?) {

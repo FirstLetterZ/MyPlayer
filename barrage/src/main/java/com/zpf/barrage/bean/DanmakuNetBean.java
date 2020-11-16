@@ -1,8 +1,10 @@
-package com.zpf.myplayer.view.bean;
+package com.zpf.barrage.bean;
+
+import com.zpf.barrage.interfaces.IDanmakuTypeBean;
 
 import java.util.List;
 
-public class DanmakuNetBean {
+public class DanmakuNetBean implements IDanmakuTypeBean {
     public List<String> fontColors;
     public String bgColor;
     public String lineColor;
@@ -15,4 +17,9 @@ public class DanmakuNetBean {
     public long showTime;
     public boolean underLine;
     public String linkUrl;
+
+    @Override
+    public int getType() {
+        return type;
+    }
 }

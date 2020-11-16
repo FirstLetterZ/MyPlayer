@@ -52,8 +52,8 @@ class VideoListLayout : BaseViewProcessor<Any>() {
                     AppConst.TARGET_VIEW_ORIENTATION,
                     ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 )
-//                push(TestLandLayout::class.java, p)
-                push(TVideoLayout::class.java, p)
+                push(TestLandLayout::class.java, p)
+//                push(TVideoLayout::class.java, p)
             }
         }
         adapter.addData(VideoBaseInfo("凤凰卫视资讯台", "http://liveali.ifeng.com/live/FHZX.flv"))
