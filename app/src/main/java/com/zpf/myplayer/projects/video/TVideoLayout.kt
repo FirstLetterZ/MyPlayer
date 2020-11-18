@@ -8,7 +8,9 @@ import com.zpf.common.player.view.IjkPlayerView
 import com.zpf.frame.ITitleBar
 import com.zpf.myplayer.R
 import com.zpf.myplayer.model.VideoBaseInfo
+import com.zpf.myplayer.util.CacheProxyUtil
 import com.zpf.support.constant.AppConst
+import com.zpf.support.util.LogUtil
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 class TVideoLayout : BaseViewProcessor<Any>() {
@@ -36,7 +38,12 @@ class TVideoLayout : BaseViewProcessor<Any>() {
         val videoInfo = params.getParcelable<VideoBaseInfo>(AppConst.INTENT_KEY)
         ijkPlayer.setController(videoController)
 //        ijkPlayer.setVideoPath("http://192.168.1.108:8080/live/livestream.m3u8")
-        ijkPlayer.setVideoPath(videoInfo?.path)
+        val proxyUrl = videoInfo?.path?.run {
+            LogUtil.w("realUrl=$this")
+            CacheProxyUtil.getProxy(context).getProxyUrl(this)
+        }
+        LogUtil.w("proxyUrl=$proxyUrl")
+        ijkPlayer.setVideoPath(proxyUrl)
         ijkPlayer.start()
         videoController.realClickListener = safeClickListener
     }

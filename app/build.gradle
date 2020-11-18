@@ -55,5 +55,6 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(path: ':barrage')
     implementation project(path: ':common')
+    implementation project(path: ':cache')
     api 'com.airbnb.android:lottie:3.5.0'
 }

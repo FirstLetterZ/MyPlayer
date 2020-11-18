@@ -8,6 +8,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.zpf.barrage.bean.DanmakuNetBean
 import com.zpf.barrage.bean.DanmakuNetBeanParser
 import com.zpf.barrage.util.DataSourceParserUtil
+import com.zpf.barrage.view.DanmakuSurfaceView
 import com.zpf.barrage.view.DanmakuView
 import com.zpf.common.base.BaseViewProcessor
 import com.zpf.frame.ITitleBar
@@ -17,7 +18,7 @@ import com.zpf.tool.config.MainHandler
 import java.util.*
 
 class TestLandLayout : BaseViewProcessor<Any>() {
-    private val tvDanmaku: DanmakuView = `$`(R.id.tv_danmaku)
+    private val tvDanmaku: DanmakuSurfaceView = `$`(R.id.tv_danmaku)
     private val viewAnim: LottieAnimationView = `$`(R.id.anim_view)
     private val files = context.assets.list("Tests")
     private var index = 0
@@ -70,6 +71,7 @@ class TestLandLayout : BaseViewProcessor<Any>() {
                 icon.bgColor = "#80FFFFFF"
                 icon.bgRadius = 24f
                 icon.fontColors = arrayListOf("#DD2C00")
+                icon.linkUrl = "linkUrl==>#DD2C00"
                 icon.content = sa[i % sa.size]
                 dataList.add(icon)
             } else {

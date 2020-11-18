@@ -44,15 +44,13 @@ open class BaseApplication : Application() {
         //初始化Fresco
         registerActivityLifecycleCallbacks(AppStackUtil.get())
         CacheMap.setLocalStorage(SpUtil.get())
-        LogUtil.setTAG(AppConstant.APP_TAG)
-        LogUtil.setLogOut(GlobalConfigImpl.get().isDebug)
     }
 
     @CallSuper
     protected open fun initConfigsOnThread() {
         LogUtil.setLogOut(true)
-        LogUtil.setTAG("MyPlayer")
-
+        LogUtil.setTAG(AppConstant.APP_TAG)
+        LogUtil.setLogOut(GlobalConfigImpl.get().isDebug)
     }
 
     override fun attachBaseContext(base: Context?) {

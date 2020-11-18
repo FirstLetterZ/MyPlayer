@@ -22,6 +22,12 @@ public class DrawerController implements IDataLoader {
     private float textSize = DrawerSetting.DEF_TEXT_SIZE;
 
     public void onLayoutChanged(int left, int top, int right, int bottom) {
+        topDrawer = null;
+        bottomDrawer = null;
+        rollDrawerList.clear();
+        if (right <= left || bottom <= top) {
+            return;
+        }
         topDrawer = new TopDrawer(new RectF(left, top + lineHeight / 2, right,
                 top + lineHeight / 2 + lineHeight * topLineCount + (topLineCount - 1) * lineSpace),
                 lineHeight, textSize);

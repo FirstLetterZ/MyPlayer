@@ -52,11 +52,12 @@ class VideoListLayout : BaseViewProcessor<Any>() {
                     AppConst.TARGET_VIEW_ORIENTATION,
                     ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 )
-                push(TestLandLayout::class.java, p)
-//                push(TVideoLayout::class.java, p)
+//                push(TestLandLayout::class.java, p)
+                push(TVideoLayout::class.java, p)
             }
         }
         adapter.addData(VideoBaseInfo("凤凰卫视资讯台", "http://liveali.ifeng.com/live/FHZX.flv"))
+        adapter.addData(VideoBaseInfo("安我视频", "https://video.andall.com/8b12b1f28f6b42b4a11fb6f08d1b4b39/03865999994a41ed94c283a6c82cf330-795d25c5ec6c15d6386115f04366dd34-sd.m3u8"))
         rvContent.adapter = adapter
     }
 }
