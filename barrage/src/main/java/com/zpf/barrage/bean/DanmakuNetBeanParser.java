@@ -1,45 +1,49 @@
 package com.zpf.barrage.bean;
 
-import android.app.Application;
-import android.content.Context;
 import android.graphics.Color;
 
 import com.zpf.barrage.interfaces.IDanmakuTypeBean;
 import com.zpf.barrage.interfaces.IDataParser;
-import com.zpf.barrage.model.DrawInfo;
-import com.zpf.barrage.util.IconBitmapParseUtil;
+import com.zpf.barrage.model.DanmakuIconElement;
+import com.zpf.barrage.model.DanmakuItemInfo;
+import com.zpf.barrage.model.DanmakuTextElement;
 
 import java.util.List;
-import java.util.Random;
 
-public class DanmakuNetBeanParser implements IDataParser {
-    private Random random = new Random();
-    private Context appContext;
+public class DanmakuNetBeanParser implements IDataParser<IDanmakuTypeBean, DanmakuItemInfo> {
 
-    public DanmakuNetBeanParser(Context context) {
-        if (context instanceof Application) {
-            appContext = context;
-        } else {
-            appContext = context.getApplicationContext();
-        }
+    private static class Instance {
+        static DanmakuNetBeanParser parser = new DanmakuNetBeanParser();
+    }
+
+    public static DanmakuNetBeanParser get() {
+        return DanmakuNetBeanParser.Instance.parser;
     }
 
     @Override
-    public DrawInfo parseData(IDanmakuTypeBean source) {
+    public DanmakuItemInfo parseData(IDanmakuTypeBean source) {
         if (!(source instanceof DanmakuNetBean)) {
             return null;
         }
         DanmakuNetBean netBean = (DanmakuNetBean) source;
-        DrawInfo result = new DrawInfo();
-        result.content = netBean.content;
+        DanmakuItemInfo result = new DanmakuItemInfo();
+        result.showType = netBean.getType();
         result.bgRadius = netBean.bgRadius;
-        result.underLine = netBean.underLine;
-        result.linkUrl = netBean.linkUrl;
+        result.responseInfo = netBean.linkUrl;
         if (netBean.startIconPath != null) {
-            result.startBitmap = IconBitmapParseUtil.parseBitmap(appContext, netBean.startIconPath);
+            DanmakuIconElement iconElement = new DanmakuIconElement();
+            iconElement.contentString = netBean.startIconPath;
+            result.contentList.add(iconElement);
+        }
+        if (netBean.content != null && netBean.content.length() > 0) {
+            DanmakuTextElement textElement = new DanmakuTextElement();
+            textElement.contentString = netBean.content;
+            result.contentList.add(textElement);
         }
         if (netBean.endIconPath != null) {
-            result.endBitmap = IconBitmapParseUtil.parseBitmap(appContext, netBean.endIconPath);
+            DanmakuIconElement iconElement = new DanmakuIconElement();
+            iconElement.contentString = netBean.endIconPath;
+            result.contentList.add(iconElement);
         }
         if (netBean.bgColor != null) {
             try {
@@ -54,10 +58,11 @@ public class DanmakuNetBeanParser implements IDataParser {
             } catch (Exception e) {
                 //
             }
+            result.lineBottom = 0f;
         }
         List<String> fontColors = netBean.fontColors;
         if (fontColors == null) {
-            result.colors = null;
+            result.textColors = null;
         } else {
             int[] ic = new int[fontColors.size()];
             for (int i = 0; i < fontColors.size(); i++) {
@@ -67,9 +72,8 @@ public class DanmakuNetBeanParser implements IDataParser {
                     ic[i] = Color.WHITE;
                 }
             }
-            result.colors = ic;
+            result.textColors = ic;
         }
-        result.speed = (1.2f + 0.08f * random.nextInt(4)) * appContext.getResources().getDisplayMetrics().density;
         return result;
     }
 }

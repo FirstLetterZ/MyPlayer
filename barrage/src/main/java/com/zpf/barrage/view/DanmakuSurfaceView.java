@@ -6,24 +6,24 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.zpf.barrage.bean.DanmakuNetBean;
-import com.zpf.barrage.drawer.DrawerController;
+import com.zpf.barrage.controller.DanmakuDrawInfoController;
+import com.zpf.barrage.controller.DanmakuSourceController;
+import com.zpf.barrage.interfaces.IDanmakuTypeBean;
+import com.zpf.barrage.interfaces.IDataDispatcher;
+import com.zpf.barrage.interfaces.IDrawTimeChecker;
+import com.zpf.barrage.interfaces.OnItemLinkClickListener;
 import com.zpf.barrage.model.DrawerSetting;
-import com.zpf.barrage.util.DanmakuItemClickHelper;
-import com.zpf.barrage.util.DataDispatcher;
 
 import java.util.List;
 
-public class DanmakuSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
-    private DataDispatcher drawInfoDispatcher = new DataDispatcher();
+public class DanmakuSurfaceView extends SurfaceView implements SurfaceHolder.Callback , IDataDispatcher {
+    private DanmakuDrawInfoController drawInfoController;
+    private DanmakuSourceController sourceController;
     private boolean playing = false;
-    private DrawerController drawerController = new DrawerController();
-    private DanmakuItemClickHelper clickHelper = new DanmakuItemClickHelper();
     private SurfaceHolder surfaceHolder;
     private Runnable drawRunnable = new Runnable() {
         @Override
@@ -32,10 +32,10 @@ public class DanmakuSurfaceView extends SurfaceView implements SurfaceHolder.Cal
                 long start = System.currentTimeMillis();
                 Canvas canvas = surfaceHolder.lockCanvas();
                 canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                drawerController.doDraw(canvas);
+                drawInfoController.doDraw(canvas);
                 surfaceHolder.unlockCanvasAndPost(canvas);
-                drawerController.prepareNext();
-                postDelayed(drawRunnable, Math.max(0, 16 + start - System.currentTimeMillis()));
+                drawInfoController.prepareNextFrame();
+                postDelayed(drawRunnable, Math.max(0, 12 + start - System.currentTimeMillis()));
             }
         }
     };
@@ -69,24 +69,24 @@ public class DanmakuSurfaceView extends SurfaceView implements SurfaceHolder.Cal
 
     private void initConfig() {
         DrawerSetting.initDefConfig(getContext());
-        drawerController.setDataLoader(drawInfoDispatcher);
+        sourceController = new DanmakuSourceController();
+        drawInfoController = new DanmakuDrawInfoController(getContext());
+        drawInfoController.setDataLoader(sourceController);
         bindHolder(getHolder());
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return (playing && surfaceHolder != null && clickHelper.interceptTouchEvent(event)) || super.onTouchEvent(event);
+        return (playing && surfaceHolder != null && drawInfoController.checkTouchInRect(event)) || super.onTouchEvent(event);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.e("ZPF", "surfaceCreated==>>" + holder.getSurfaceFrame().toString());
         bindHolder(holder);
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Log.e("ZPF", "surfaceChanged==>>" + holder.getSurfaceFrame().toString());
         bindHolder(holder);
     }
 
@@ -111,16 +111,24 @@ public class DanmakuSurfaceView extends SurfaceView implements SurfaceHolder.Cal
         playing = true;
     }
 
+    @Override
     public void clearDataList() {
-        drawInfoDispatcher.clearDataList();
+        sourceController.clearDataList();
     }
 
-    public void addDataList(List<DanmakuNetBean> list) {
-        drawInfoDispatcher.addDataList(list);
+    @Override
+    public void addDataList(List<? extends IDanmakuTypeBean> list) {
+        sourceController.addDataList(list);
     }
 
-    public void addData(DanmakuNetBean bean, boolean insertEnd) {
-        drawInfoDispatcher.addData(bean, insertEnd);
+    @Override
+    public void addData(IDanmakuTypeBean bean, boolean insertEnd) {
+        sourceController.addData(bean, insertEnd);
+    }
+
+    @Override
+    public void setDrawTimeChecker(IDrawTimeChecker checker) {
+        sourceController.setDrawTimeChecker(checker);
     }
 
     private void bindHolder(SurfaceHolder holder) {
@@ -131,10 +139,13 @@ public class DanmakuSurfaceView extends SurfaceView implements SurfaceHolder.Cal
         }
         holder.addCallback(this);
         Rect surfaceFrame = holder.getSurfaceFrame();
-        drawerController.onLayoutChanged(surfaceFrame.left, surfaceFrame.top, surfaceFrame.right, surfaceFrame.bottom);
+        drawInfoController.onLayoutChanged(surfaceFrame.left, surfaceFrame.top, surfaceFrame.right, surfaceFrame.bottom);
         if (playing) {
             postDelayed(drawRunnable, 1000);
         }
     }
 
+    public void setItemClickListener(OnItemLinkClickListener linkClickListener) {
+        drawInfoController.setItemLinkClickListener(linkClickListener);
+    }
 }

@@ -11,5 +11,4 @@ public @interface DrawerType {
     int DRAW_ROLL = 1;
     int DRAW_TOP = 2;
     int DRAW_BOTTOM = 3;
-    int DRAW_FONT = 4;
 }
