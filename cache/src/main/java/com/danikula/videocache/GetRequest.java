@@ -54,7 +54,7 @@ class GetRequest {
     }
 
     private String findUri(String request) {
-        Log.e("MyPlayer", "request=" + request);
+        Log.e("MyPlayer", "request = " + request);
         Matcher matcher = URL_PATTERN.matcher(request);
         if (matcher.find()) {
             return matcher.group(1);

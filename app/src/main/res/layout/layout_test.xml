@@ -5,15 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--    <com.zpf.barrage.view.DanmakuSurfaceView-->
+    <!--        android:id="@+id/tv_danmaku"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
+
     <com.zpf.barrage.view.DanmakuSurfaceView
-        android:id="@+id/tv_danmaku"
+        android:id="@+id/tv_test_danmaku"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/anim_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:lottie_loop="false"
-        app:lottie_autoPlay="false" />
+    <!--    <com.airbnb.lottie.LottieAnimationView-->
+    <!--        android:id="@+id/anim_view"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:lottie_autoPlay="false"-->
+    <!--        app:lottie_loop="false" />-->
+
+    <Button
+        android:id="@+id/tv_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

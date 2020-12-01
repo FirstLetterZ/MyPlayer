@@ -182,11 +182,12 @@ public class HttpProxyCacheServer {
     }
 
     private boolean isAlive() {
-        return pinger.ping(3, 70);   // 70+140+280=max~500ms
+        return true;
+//        return pinger.ping(3, 70);   // 70+140+280=max~500ms
     }
 
     private String appendToProxyUrl(String url) {
-        return String.format(Locale.US, "http://%s:%d/%s", PROXY_HOST, port, ProxyCacheUtils.encode(url));
+        return String.format(Locale.US, "https://%s:%d/%s", PROXY_HOST, port, ProxyCacheUtils.encode(url));
     }
 
     private File getCacheFile(String url) {
@@ -234,7 +235,7 @@ public class HttpProxyCacheServer {
             if (pinger.isPingRequest(url)) {
                 pinger.responseToPing(socket);
             } else {
-                if (url.endsWith(".m3u8")) {
+                 if (url.endsWith(".m3u8")) {
                     m3u8Host = url.substring(0, url.lastIndexOf("/"));
                 } else if (url.endsWith(".ts")) {
                     url = m3u8Host + "/" + url;

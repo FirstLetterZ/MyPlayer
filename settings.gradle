@@ -1,2 +1,2 @@
-include ':app', ':common', ':barrage', ':cache'
+include ':app', ':common', ':barrage', ':cache', ':avc'
 rootProject.name = "MyPlayer"

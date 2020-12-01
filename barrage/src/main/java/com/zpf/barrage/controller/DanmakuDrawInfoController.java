@@ -225,14 +225,14 @@ public class DanmakuDrawInfoController implements IDataLoader<DanmakuItemInfo> {
                 endX = contentElement.infoRectF.right;
             }
             if (endX > 0) {
-                endX = insideSpace;
+                endX += insideSpace;
             }
-            if (random.nextInt(50) == 0) {
-                result.rollSpeed = 2 * appContext.getResources().getDisplayMetrics().density;
+            int ni = random.nextInt(50);
+            if (ni == 0) {
+                result.rollSpeed = 2f * appContext.getResources().getDisplayMetrics().density;
             } else {
                 result.rollSpeed = appContext.getResources().getDisplayMetrics().density;
             }
-
             result.responseRegion.right = endX;
         }
         return result;

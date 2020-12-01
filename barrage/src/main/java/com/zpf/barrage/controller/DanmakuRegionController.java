@@ -77,7 +77,7 @@ public class DanmakuRegionController {
         float dy = infoRectF.top - newItem.responseRegion.top;
         if (itemType == DrawerType.DRAW_ROLL) {
             if (lastItemInfo == null) {
-                dx = infoRectF.right;
+                dx = infoRectF.right + (1f * random.nextInt(4)) * infoRectF.height();
             } else {
                 dx = lastItemInfo.responseRegion.right + (2f + 0.5f * random.nextInt(4)) * infoRectF.height();
             }

@@ -56,5 +56,6 @@ dependencies {
     implementation project(path: ':barrage')
     implementation project(path: ':common')
     implementation project(path: ':cache')
+    implementation project(path: ':avc')
     api 'com.airbnb.android:lottie:3.5.0'
 }

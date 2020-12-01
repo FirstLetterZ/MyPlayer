@@ -48,10 +48,8 @@ public class DrawHelper {
         for (DanmakuContentElement contentInfo : itemInfo.contentList) {
             if (contentInfo instanceof DanmakuTextElement) {
                 if (itemInfo.textColors == null || itemInfo.textColors.length == 0) {
-                    paint.setShader(null);
                     paint.setColor(DrawerSetting.DEF_PAINT_COLOR);
                 } else if (itemInfo.textColors.length == 1) {
-                    paint.setShader(null);
                     paint.setColor(itemInfo.textColors[0]);
                 } else {
                     if (itemInfo.textGradient == null) {
@@ -69,6 +67,9 @@ public class DrawHelper {
             maxBottom = Math.max(contentInfo.infoRectF.bottom, maxBottom);
             paint.setAlpha(itemInfo.alpha);
             contentInfo.draw(canvas, paint);
+            if (paint.getShader() != null) {
+                paint.setShader(null);
+            }
         }
         itemInfo.lineBottom = maxBottom;
     }
