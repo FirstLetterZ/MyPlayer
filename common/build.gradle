@@ -21,7 +21,7 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.6'
     api 'com.zpf.android:bridgeWebview:2.0.0'
     api 'com.zpf.android:util-gson:1.1.0'
-    api 'com.zpf.android:tool-support:1.1.1'
+    api 'com.zpf.android:tool-support:1.1.9'
     api 'com.zpf.android:tool-views:0.3.8'
     api 'com.zpf.android:util-retrofit:2.2.1'
     api 'com.zpf.android:tool-compat-fragment-manager:2.0.0'
